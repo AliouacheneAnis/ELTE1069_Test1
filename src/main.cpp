@@ -19,7 +19,7 @@ const int SERVO_PIN = 9;
 
 // Declaration Variables 
 int ValeurRotation; 
-int pos = 0, Lastpos = 0; 
+int pos = 0, Lastpos = 0, LastValeur; 
 
 // objet moteur 
 Servo myservo;
@@ -46,9 +46,10 @@ void loop() {
   pos = map(ValeurRotation, 0, 1023, 0, 90);
   
   // Si y a un changement de valeur 
-    if(Lastpos != pos){
+    if( Lastpos != pos || LastValeur != ValeurRotation ){
       myservo.write(pos); 
       Lastpos = pos; 
+      LastValeur = ValeurRotation; 
       appendPayload("Valeur rotation ", ValeurRotation);
       appendPayload("Position ", pos); 
       sendPayload();
